@@ -53,10 +53,21 @@
       opacity:.04; z-index:-1; pointer-events:none;
     }
 
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ===== NAV ===== */
     nav{
       position:fixed; top:0; width:100%;
-      padding: 1rem 6%;
+      padding: 1.2rem 6%;
       display:flex; justify-content:space-between; align-items:center;
       backdrop-filter:blur(14px); background:rgba(3,3,5,.85);
       z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -71,7 +82,7 @@
     .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--white); z-index: 1002; transition: 0.3s; }
 
     /* ===== SECTION DEFAULTS ===== */
-    .section-padding { padding: 6rem 6%; max-width: 1400px; margin: 0 auto; }
+    .section-padding { padding: 8rem 6%; max-width: 1400px; margin: 0 auto; }
     .section-title { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 6vw, 4rem); text-transform: uppercase; font-weight: 900; margin-bottom: 3rem; line-height: 1.1; }
 
     /* ===== HERO ===== */
@@ -104,22 +115,22 @@
     .lead-text { font-size: clamp(1.4rem, 3vw, 2.2rem); font-family: 'Syne', sans-serif; line-height: 1.3; margin-bottom: 3rem; color: var(--white); }
     .about-body p { color: var(--gray); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; max-width: 600px; }
     .stats-row { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
-    .stat-num { display: block; font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--green); }
-    .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gray); }
+    .stat-num { display: inline-block; font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--green); }
+    .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gray); display: block; }
 
     /* ===== WHAT WE DO ===== */
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
     .service-card { 
       padding: 3rem 2rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); 
-      border-radius: 30px; transition: 0.4s ease;
+      border-radius: 30px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .service-card:hover { background: rgba(255,255,255,0.05); border-color: var(--blue); transform: translateY(-10px); }
+    .service-card:hover { background: rgba(255,255,255,0.05); border-color: var(--blue); transform: translateY(-10px) scale(1.02); }
     .service-card i { font-size: 2rem; color: var(--pink); margin-bottom: 1.5rem; display: block; }
     .service-card h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; }
     .service-card p { color: var(--gray); line-height: 1.6; }
 
     /* ===== STRATEGY ===== */
-    .strategy { background: #fff; color: #000; }
+    .strategy { background: #fff; color: #000; border-radius: 60px 60px 0 0; }
     .strategy-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: flex-start; }
     .step { margin-bottom: 3rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1.5rem; }
     .step-num { font-family: 'Syne', sans-serif; font-weight: 900; font-size: 1rem; color: var(--pink); margin-bottom: 0.5rem; display: block; }
@@ -128,7 +139,7 @@
     /* ===== CONTACT ===== */
     .contact-box { 
       background: linear-gradient(135deg, var(--pink), var(--blue)); 
-      padding: 5rem 2rem; border-radius: 50px; text-align: center; color: #000;
+      padding: 6rem 2rem; border-radius: 50px; text-align: center; color: #000;
     }
     .contact-box h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 7vw, 4rem); font-weight: 900; text-transform: uppercase; margin-bottom: 2rem; line-height: 1; }
     
@@ -138,12 +149,11 @@
       cursor: pointer; border: none;
     }
     .btn-dark { background: #000; color: #fff; }
-    .btn-dark:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .btn-dark:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 
     /* ===== MOBILE ADAPTATIONS ===== */
     @media (max-width: 992px) {
       .menu-toggle { display: block; }
-      
       .nav-links {
         position: fixed; top: 0; left: 100%; width: 100%; height: 100vh;
         background: var(--bg); flex-direction: column; justify-content: center;
@@ -166,7 +176,6 @@
         font-size: 1rem; line-height: 1.5;
       }
 
-      /* ABOUT MOBILE SPECIFICS */
       .about-sticky { position: relative; top: 0; text-align: center; margin-bottom: 1rem; }
       .about-content { text-align: center; }
       .about-body p { margin: 0 auto 2rem; }
@@ -207,24 +216,26 @@
 <section class="hero">
   <div class="hero-layout">
     <div class="hero-text">
-      <span class="tagline">// DOMINATE THE ALGORITHM</span>
-      <h1>We <span>Engineer</span> Attention</h1>
-      <p>NovaHaus is a high-velocity social agency building culture-driven brands and content engines that convert curiosity into capital.</p>
-      <a href="#contact" class="btn btn-dark" style="background:var(--white); color:#000">Start Project</a>
+      <span class="tagline reveal">// DOMINATE THE ALGORITHM</span>
+      <h1 class="reveal" style="transition-delay: 0.1s;">We <span>Engineer</span> Attention</h1>
+      <p class="reveal" style="transition-delay: 0.2s;">NovaHaus is a high-velocity social agency building culture-driven brands and content engines that convert curiosity into capital.</p>
+      <div class="reveal" style="transition-delay: 0.3s;">
+        <a href="#contact" class="btn btn-dark" style="background:var(--white); color:#000">Start Project</a>
+      </div>
     </div>
-    <div class="hero-image-box">
+    <div class="hero-image-box reveal" style="transition-delay: 0.4s;">
       <div class="image-inner">
         <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200" alt="Tech Studio">
       </div>
       <div class="data-sticker">
         <div style="font-size: 0.6rem; opacity: 0.6;">AVG CLIENT GROWTH <i class="fas fa-info-circle"></i></div>
-        <div style="font-size: 1.8rem;">+240%</div>
+        <div class="counter" data-target="240" style="font-size: 1.8rem; display: inline-block;">0</div><span style="font-size:1.8rem;">%</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section-padding" id="about">
+<section class="section-padding reveal" id="about">
   <div class="about-layout">
     <div class="about-sticky">
       <h2 class="section-title">We are<br><span>NovaHaus</span></h2>
@@ -237,11 +248,11 @@
         <p>Founded in 2026, NovaHaus was born from a simple realization: the old agency model is dead. We architect cultural relevance for brands that refuse to be ignored.</p>
         <div class="stats-row">
           <div class="stat-item">
-            <span class="stat-num">500M+</span>
+            <span class="stat-num counter" data-target="500">0</span><span class="stat-num">M+</span>
             <span class="stat-label">Organic Views</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num">12+</span>
+            <span class="stat-num counter" data-target="12">0</span><span class="stat-num">+</span>
             <span class="stat-label">Global Markets</span>
           </div>
         </div>
@@ -250,20 +261,20 @@
   </div>
 </section>
 
-<section class="section-padding" id="services">
+<section class="section-padding reveal" id="services">
   <h2 class="section-title">What We Do</h2>
   <div class="services-grid">
-    <div class="service-card">
+    <div class="service-card reveal" style="transition-delay: 0.1s;">
       <i class="fas fa-video"></i>
       <h3>Content Systems</h3>
       <p>Short-form video engines engineered for maximum virality and retention.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal" style="transition-delay: 0.2s;">
       <i class="fas fa-chart-line"></i>
       <h3>Performance Paid</h3>
       <p>Precision-targeted social ads optimized for ROI, not just "likes".</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal" style="transition-delay: 0.3s;">
       <i class="fas fa-fingerprint"></i>
       <h3>Brand Identity</h3>
       <p>Visual systems designed to make your brand instantly recognizable.</p>
@@ -272,18 +283,18 @@
 </section>
 
 <section class="strategy section-padding" id="strategy">
-  <div class="strategy-layout">
+  <div class="strategy-layout reveal">
     <div>
       <h2 class="section-title" style="color: #000;">Our Method</h2>
       <p style="color: #666; font-size: 1.2rem; margin-bottom: 2rem;">We don't guess. We engineer results through data and creative intuition.</p>
     </div>
     <div>
-      <div class="step">
+      <div class="step reveal" style="transition-delay: 0.1s;">
         <span class="step-num">01 / AUDIT</span>
         <h4>Pattern Recognition</h4>
         <p>Analyzing data to find the gaps your competitors are missing.</p>
       </div>
-      <div class="step">
+      <div class="step reveal" style="transition-delay: 0.2s;">
         <span class="step-num">02 / BUILD</span>
         <h4>Content Velocity</h4>
         <p>Deploying high-quality creative assets at scale.</p>
@@ -292,7 +303,7 @@
   </div>
 </section>
 
-<section class="section-padding" id="contact">
+<section class="section-padding reveal" id="contact">
   <div class="contact-box">
     <h2>Ready to scale?</h2>
     <p style="font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.9;">Let’s build your brand’s attention engine today.</p>
@@ -305,6 +316,7 @@
 </footer>
 
 <script>
+  /* SCROLL BAR */
   window.onscroll = function() {
     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -312,6 +324,7 @@
     document.getElementById("myBar").style.width = scrolled + "%";
   };
 
+  /* MOBILE MENU */
   function toggleMenu() {
     const navLinks = document.getElementById('navLinks');
     const menuToggle = document.getElementById('menuToggle');
@@ -325,6 +338,42 @@
       document.body.style.overflow = 'initial';
     }
   }
+
+  /* REVEAL ON SCROLL & COUNTER ANIMATION */
+  const observerOptions = { threshold: 0.15 };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        
+        // Counter logic: finds counters within the revealed container
+        const counters = entry.target.querySelectorAll('.counter');
+        counters.forEach(counter => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const speed = 2000 / target;
+
+          const updateCount = () => {
+            const current = +counter.innerText;
+            if (current < target) {
+              counter.innerText = Math.ceil(current + (target / 100));
+              setTimeout(updateCount, speed);
+            } else {
+              counter.innerText = target;
+            }
+          };
+          if (count === 0) updateCount();
+        });
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // Observe Hero for the top sticker
+  observer.observe(document.querySelector('.hero-text'));
+  observer.observe(document.querySelector('.hero-image-box'));
+
 </script>
 
 </body>
